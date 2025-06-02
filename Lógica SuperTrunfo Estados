@@ -1,0 +1,28 @@
+ int atributo;
+        do {
+            printf("\nEscolha um atributo (1-População, 2-PIB, 3-Área): ");
+            scanf("%d", &atributo);
+        } while (atributo < 1 || atributo > 3);
+
+        float valJogador = obterAtributo(estadoJogador, atributo);
+        float valMaquina = obterAtributo(estadoMaquina, atributo);
+
+        printf("\nEstado da Máquina:\n");
+        mostrarEstado(estadoMaquina);
+
+        comparar(valJogador, valMaquina, &jogador, &maquina);
+    }
+
+    printf("🏁 FIM DE JOGO\n");
+    printf("Você: %d ponto(s)\n", jogador.pontos);
+    printf("Máquina: %d ponto(s)\n", maquina.pontos);
+
+    if (jogador.pontos > maquina.pontos)
+        printf("🎉 Parabéns! Você venceu o jogo!\n");
+    else if (jogador.pontos < maquina.pontos)
+        printf("😢 Você perdeu o jogo.\n");
+    else
+        printf("🤝 Empate!\n");
+
+    return 0;
+}
