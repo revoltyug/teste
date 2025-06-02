@@ -1,0 +1,82 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <string.h>
+
+#define NUM_CARTAS 3
+
+typedef struct {
+    char nome[30];
+    int ataque;
+    int defesa;
+    int magia;
+} Carta;
+
+// Lista de cartas disponíveis
+Carta baralho[NUM_CARTAS] = {
+    {"Dragão Flamejante", 9, 5, 4},
+    {"Golem de Pedra", 4, 9, 2},
+    {"Feiticeiro Supremo", 5, 4, 10}
+};
+
+// Função para mostrar uma carta
+void mostrarCarta(Carta c) {
+    printf("\nNome: %s\n", c.nome);
+    printf("1. Ataque: %d\n", c.ataque);
+    printf("2. Defesa: %d\n", c.defesa);
+    printf("3. Magia: %d\n", c.magia);
+}
+
+int main() {
+    srand(time(NULL));
+
+    int indexJogador = rand() % NUM_CARTAS;
+    int indexMaquina;
+    
+    do {
+        indexMaquina = rand() % NUM_CARTAS;
+    } while (indexMaquina == indexJogador);
+
+    Carta jogador = baralho[indexJogador];
+    Carta maquina = baralho[indexMaquina];
+
+    printf("Sua carta:");
+    mostrarCarta(jogador);
+
+    int escolha;
+    printf("\nEscolha um atributo para competir (1-Ataque, 2-Defesa, 3-Magia): ");
+    scanf("%d", &escolha);
+
+    int valorJogador = 0, valorMaquina = 0;
+
+    switch (escolha) {
+        case 1:
+            valorJogador = jogador.ataque;
+            valorMaquina = maquina.ataque;
+            break;
+        case 2:
+            valorJogador = jogador.defesa;
+            valorMaquina = maquina.defesa;
+            break;
+        case 3:
+            valorJogador = jogador.magia;
+            valorMaquina = maquina.magia;
+            break;
+        default:
+            printf("Opção inválida!\n");
+            return 1;
+    }
+
+    printf("\nCarta da máquina:");
+    mostrarCarta(maquina);
+
+    printf("\nResultado:\n");
+    if (valorJogador > valorMaquina)
+        printf("🎉 Você venceu!\n");
+    else if (valorJogador < valorMaquina)
+        printf("💀 Você perdeu.\n");
+    else
+        printf("⚔️ Empate!\n");
+
+    return 0;
+}
